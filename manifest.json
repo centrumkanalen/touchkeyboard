@@ -4,7 +4,7 @@
    },
    "content_scripts": [ {
       "all_frames": true,
-      "js": [ "script.js" ],
+      "js": [ "jquery.min.js","script.js" ],
       "matches": [ "\u003Call_urls>" ],
       "run_at": "document_end"
    } ],

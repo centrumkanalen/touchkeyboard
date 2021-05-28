@@ -11,7 +11,7 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
       smallKeyboardLeft: localStorage["smallKeyboardLeft"],
       anchorOffset: localStorage["anchorOffset"]
     });
-  }
+  } // test
   else if (request.method == "loadKeyboardSettings") {
     sendResponse({
       openedFirstTime: localStorage["openedFirstTime"],

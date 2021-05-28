@@ -27,6 +27,11 @@ var autoTriggerAfter = 1;
 var lastHovered = null;
 var lastHoveredTO = null;
 
+
+$(document).ready(function() {
+  $('form.fn-search-form').append('<input type="submit" name="search" style="display:none" />');
+});
+
 function virtualKeyboardChromeExtension_generate_onchange() {
   if (virtualKeyboardChromeExtensionElemChanged == true) {
     virtualKeyboardChromeExtensionElemChanged = false;
@@ -150,6 +155,7 @@ function virtualKeyboardChromeExtension_click(key, skip) {
         }, 200);
         break;
       case 'Enter':
+
         if (virtualKeyboardChromeExtensionClickedElem != null) {
           if (virtualKeyboardChromeExtensionElemType == "textarea") {
             var pos = virtualKeyboardChromeExtensionClickedElem.selectionStart;
@@ -161,6 +167,7 @@ function virtualKeyboardChromeExtension_click(key, skip) {
 
             var form = virtualKeyboardChromeExtension_getParentByTagName(virtualKeyboardChromeExtensionClickedElem, "form");
             if (form != null) {
+
               var inputs = form.getElementsByTagName("input");
               var c = 0;
               for (var i = 0; i < inputs.length; i++) {
@@ -179,6 +186,7 @@ function virtualKeyboardChromeExtension_click(key, skip) {
                 }
               }
               if (c <= 0) {
+                 console.log('5');
                 var keyboardEvent = document.createEvent("KeyboardEvent");
                 var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
                 keyboardEvent[initMethod](
@@ -949,6 +957,7 @@ function init_virtualKeyboardChromeExtension(firstTime) {
 
         }
         v.onmousedown = function (ent) {
+          console.log('asdf');
           ent.preventDefault();
         }
         v.onmouseup = function (ent) {
@@ -958,10 +967,51 @@ function init_virtualKeyboardChromeExtension(firstTime) {
       }
       var e = document.getElementsByClassName("kbdClick");
       for (i = 0; i < e.length; i++) {
+        
         if (e[i].getAttribute("_vkEnabled") == undefined) {
           e[i].setAttribute("_vkEnabled", "true");
           e[i].onclick = function (ent) {
+
             var k = this.getAttribute("_key");
+            console.log(k);
+            if (k == 'a') {
+              console.log('JA');
+
+              simulateKeyPress("e");
+              /*
+              document.dispatchEvent(
+                new KeyboardEvent("keydown", {
+                  key: "e",
+                  keyCode: 69, // example values.
+                  code: "KeyE", // put everything you need in this object.
+                  which: 69,
+                  shiftKey: false, // you don't need to include values
+                  ctrlKey: false,  // if you aren't going to use them.
+                  metaKey: false   // these are here for example's sake.
+                })
+              );
+              */
+
+              var keyboardEvent = document.createEvent('KeyboardEvent');
+              var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
+
+              keyboardEvent[initMethod](
+                'keydown', // event type: keydown, keyup, keypress
+                true, // bubbles
+                true, // cancelable
+                window, // view: should be window
+                false, // ctrlKey
+                false, // altKey
+                false, // shiftKey
+                false, // metaKey
+                40, // keyCode: unsigned long - the virtual key code, else 0
+                0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
+              );
+              document.dispatchEvent(keyboardEvent);
+
+
+
+            }
             if (virtualKeyboardChromeExtensionShift) {
               if (this.getAttribute("_keyC") != undefined) {
                 k = this.getAttribute("_keyC");
