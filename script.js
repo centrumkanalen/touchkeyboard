@@ -972,46 +972,7 @@ function init_virtualKeyboardChromeExtension(firstTime) {
           e[i].setAttribute("_vkEnabled", "true");
           e[i].onclick = function (ent) {
 
-            var k = this.getAttribute("_key");
-            console.log(k);
-            if (k == 'a') {
-              console.log('JA');
-
-              simulateKeyPress("e");
-              /*
-              document.dispatchEvent(
-                new KeyboardEvent("keydown", {
-                  key: "e",
-                  keyCode: 69, // example values.
-                  code: "KeyE", // put everything you need in this object.
-                  which: 69,
-                  shiftKey: false, // you don't need to include values
-                  ctrlKey: false,  // if you aren't going to use them.
-                  metaKey: false   // these are here for example's sake.
-                })
-              );
-              */
-
-              var keyboardEvent = document.createEvent('KeyboardEvent');
-              var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
-
-              keyboardEvent[initMethod](
-                'keydown', // event type: keydown, keyup, keypress
-                true, // bubbles
-                true, // cancelable
-                window, // view: should be window
-                false, // ctrlKey
-                false, // altKey
-                false, // shiftKey
-                false, // metaKey
-                40, // keyCode: unsigned long - the virtual key code, else 0
-                0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
-              );
-              document.dispatchEvent(keyboardEvent);
-
-
-
-            }
+            var k = this.getAttribute("_key");          
             if (virtualKeyboardChromeExtensionShift) {
               if (this.getAttribute("_keyC") != undefined) {
                 k = this.getAttribute("_keyC");
